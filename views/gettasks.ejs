@@ -14,8 +14,40 @@
       <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
       <!-- Compiled and minified JavaScript -->
       <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+     <style> 
+     footer{
+        margin:0 auto;
+        text-align:center; 
+        position:static; 
+        bottom:0px;
+        left:38%;
+        margin-top: 10px;
+        margin-bottom:5px;
+        font-size:25px;
+    }
+
+    
+   
+    #container{
+        
+    }
+</style>
 </head>
 <body>
+<div id="container">
+    <header>
+
+		<nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Tasks</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+        <li><a href="/">Main page</a></li>
+        <li><a href="/about">About</a></li>
+      </ul>
+    </div>
+  </nav>
+        
+	</header>
 
     <table class="responsive-table">
         <thead>
@@ -25,11 +57,12 @@
               <th>Description</th>
               <th>Priority</th>
               <th>Status</th>
+              <th>created At</th>
           </tr>
         </thead>
       
         <tbody >
-            <% if(tasks.length>0){ %>
+            <% if(tasks.length>0 ){ %>
                 
                 
                    <% tasks.forEach(task => { %>
@@ -39,8 +72,12 @@
                         <td><%=task.description%></td>
                         <td><%=task.priority%></td>
                         <td><%=task.status%></td>
+
+                        <td><%=task.createdAt%></td>
                     </tr>
-                   <% }) %>
+
+                     <%  } )%>
+                
                    
             
            
@@ -51,13 +88,17 @@
                         <td> - </td>
                         <td> - </td>
                         <td> - </td>
+                        <td> - </td>
                         <td> - </td></tr>
             </tbody>
-        <div><center><h1>No Tasks</h1></center></div>
+        <div><center><h1>Well looks clean , Got any tasks? </h1></center></div>
         <% } %>
    
     </table>
-      
-    
+      <br>
+    <footer>
+        copyrights &copy MRSTONE c|o Lighto
+         </footer>
+        </div>
 </body>
 </html>

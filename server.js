@@ -25,14 +25,36 @@ server.get("/addtask",(req,res)=>{
 
 //post request on add-task (db step)
 
+
+//to check if request is empty
+function isEmpty(obj) {
+    for(var prop in obj) {
+      if(obj.hasOwnProperty(prop))
+        return false;
+    }
+  
+    return true;
+  }
+
+
 server.post("/add-task",(req,res)=>{
     console.log(req.body)
     const status="Pending";
     const T1 = new Task(req.body)
     console.log(T1)
+
+    //checking for a blank response or an error response
+    if(
+        T1.taskname.length<=1 && T1.description.length<=1 && T1.priority==null &&T1.status.length<=1
+    ){
+        res.statusCode = 200
+        res.send("<center><h3>blank request / check if all fields are entered </h3></center")
+    }else{
     T1.save().then(()=>{
        console.log("added")
-    }).catch((err)=>console.log(err))
+       res.redirect("/")
+    }).catch((err)=>console.log(err))}
+   
 })
 
 //get tasks page
@@ -40,6 +62,22 @@ server.get("/gettasks",(req,res)=>{
     Task.find().then( (data)=>
      res.render("gettasks",{tasks:data} ))
      .catch((err)=>console.log(err));
+})
+
+
+//task completed page
+server.get("/completedtask",(req,res)=>{
+    Task.find({status:"completed"}).then((data)=>{
+        res.render("gettasks",{tasks:data})
+    }).catch((err)=>console.log("somethings error"))
+})
+
+
+//prioritypage
+server.get("/priority",(req,res)=>{
+    Task.find({priority:1}).then((data)=>{
+        res.render("gettasks",{tasks:data})
+    }).catch((err)=>console.log("somethings error"))
 })
 server.use((req,res)=>{
     res.render("errorpage")
